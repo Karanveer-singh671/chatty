@@ -25,21 +25,26 @@ class App extends Component {
       ]
     }
     this.newChatMessage = this.newChatMessage.bind(this);
+    // this.handleKeys=this.handleKeys.bind(this);
   }
 
 
   componentDidMount() {
     this.socket = new WebSocket("ws://localhost:3001");
+    console.log('Connected to Server');
+    this.socket.addEventListener('message', (msg) => {
+      this.setState({messages:this.state.messages.concat(msg.data)})
+    });
   }
 
-
   newChatMessage(content) {
-    console.log("we are able to receive the content ",content);
+    // console.log("we are able to receive the content ",content);
     const id = this.state.messages[this.state.messages.length - 1].id + 1 
-    console.log('id',id);
+    // console.log('id',id);
     const newMessage = {id: id, username: "thomas", content: content.content};
     const messages = this.state.messages.concat(newMessage)
     this.setState({messages: messages})
+    this.socket.send(JSON.stringify(messages)); // messages now send to server stringify because socket can't take an object
   }
 
   render() {
@@ -49,7 +54,8 @@ class App extends Component {
         <Navbar />
         <MessageList messages={ this.state.messages }/>
         <Chatbar currentUser={ this.state.currentUser}
-          newChatMessage={this.newChatMessage} />
+          newChatMessage={this.newChatMessage}
+          onKeyPress={this.handleKeys} />
       </div>
     );
   }
