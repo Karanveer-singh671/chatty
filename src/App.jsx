@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <MessageList messages={this.state.messages} />  // makes it a prop
+        <MessageList messages={this.state.messages} />  
         <Chatbar currentUser={this.state.currentUser}/>
       </div>
     );
