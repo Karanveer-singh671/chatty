@@ -24,7 +24,7 @@ class Chatbar extends Component {
     onEnterNewName(event) {
         if(event.key === "Enter") {
         this.props.currentUser(this.state);
-        this.onNewName(event);
+        this.onNewName();
       }
     }
   
