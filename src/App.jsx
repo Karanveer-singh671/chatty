@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Chatbar from './ChatBar.jsx'
 import MessageList from './MessageList.jsx';
-import Navbar from './nav.jsx'
-import home from '../styles/home.scss';
 
 
 class App extends Component {
@@ -13,36 +11,37 @@ class App extends Component {
       currentUser: {
         name: 'Bob'
       }, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      count: 0
     };
     this.newChatMessage = this.newChatMessage.bind(this);
   }
 
   componentDidMount() {
-    this.socket = new WebSocket("ws://localhost:3001");
+    this.socket = new WebSocket('ws://localhost:3001');
 
     this.socket.addEventListener('message', (msg) => {
-      this.setState({
-        currentUser: this.state.currentUser,
-        messages: this.state.messages.concat(JSON.parse(msg.data))});
-    });
+      let parsedMessage = JSON.parse(msg.data);
+      
+      if (parsedMessage.type === 'userCount') {
+          this.setState({
+          userCount: parsedMessage.userCount
+          })
+      }
+      else {
+        this.setState({
+        messages: this.state.messages.concat(parsedMessage)
+        });
+      } 
+    })
   }
-
-  componentWillMount() {
-
-  }
-
-
+      
   newChatMessage(content) {
     var tempMessage = content;
-    console.log("new message in app ",tempMessage);
-
-    console.log(tempMessage.newUsername);
-
     //if condition for the Notification where user name changes its name from old to new
     if(tempMessage.type==='Notification'){
       var newMessage = {
-        content: this.state.currentUser.name + ' has changed named to '+content.newUsername,
+        content: this.state.currentUser.name + ' has changed their name to '+content.newUsername,
       };
 
       this.setState({
@@ -53,7 +52,7 @@ class App extends Component {
 
     }
     else if(tempMessage.type==='NewMessage'){
-      var newMessage = {
+      newMessage = {
 
         content: content.content,
         username: content.username,
@@ -71,10 +70,12 @@ class App extends Component {
   }
 
   render() {
-    console.log("Rendering <App/>");
     return (
       <div>
-        <Navbar />
+        <nav className="navbar">
+        <a href="/" className="navbar-brand">Chatty</a>
+        <a href="/" className="navbar-counter"> {this.state.userCount}users online</a>
+        </nav>
         <MessageList messages={ this.state.messages }/>
         <Chatbar currentUser={ this.state.currentUser}
           newChatMessage={this.newChatMessage} />

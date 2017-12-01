@@ -26,29 +26,22 @@ class Chatbar extends Component {
       }
     
       onUsernameChange(event){
-    
         var newUsername = this.state.username;
-    
         if(event.key == 'Enter'){
           var newMessage = {
             newUsername: newUsername,
             type: 'Notification'
           }
-    
           this.props.newChatMessage(newMessage);
-    
           this.setState({
             content: '',
             username: newUsername
           });
         }
-    
       }
-    
       //used to send the new message
       onEnterKey(event) {
         if(event.key == 'Enter'){
-    
           this.props.newChatMessage({
             content: this.state.content,
             username: this.state.username,
