@@ -1,41 +1,13 @@
-React Boilerplate
-=====================
+### Chatty Application
+A real time web application using the React library. This app allows communication between multiple clients such as messaging, name changing with a notification and displaying the number of current online users.
 
-A minimal and light dev environment for ReactJS.
+### Getting Started
+1. Fork this repository then clone your fork of this repository
+2. Install dependencies using the npm install command.
+3. npm start the project in one terminal 
+4. Run the server.js file in the chatty_server directory using npm start in another terminal
 
-### Usage
-
-Clone the boilerplate and create your own git repo.
-
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
-
-Install the dependencies and start the server.
-
-```
-npm install
-npm start
-open http://localhost:3000
-```
-
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
+open http://localhost:3000 
 
 ### Dependencies
 
@@ -43,3 +15,10 @@ npm run lint
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+
+### Screenshots
+
+
+!["Screenshot of username change"](https://raw.githubusercontent.com/Karanveer-singh671/chatty/master/docs/userNameChange.png)
+
+!["Screenshot of multiple clients with users online displayed"](https://raw.githubusercontent.com/Karanveer-singh671/chatty/master/docs/%20MultipleClientwuserdisplay.png)
